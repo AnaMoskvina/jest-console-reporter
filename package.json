@@ -4,7 +4,7 @@
   "version": "0.3.0",
   "description": "Jest reporter for grouping and filtering intrusive console warnings",
   "main": "lib/CleanConsoleReporter.mjs",
-  "repository": "https://github.com/jevakallio/jest-clean-console-reporter",
+  "repository": "https://github.com/acidfernando/jest-clean-console-reporter",
   "author": "Jani Eväkallio and Fernando García Hernández",
   "license": "MIT",
   "scripts": {
