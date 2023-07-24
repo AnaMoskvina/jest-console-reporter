@@ -1,4 +1,4 @@
-# jest-clean-console-reporter (alpha)
+# jest-console-reporter
 
 _A custom Jest reporter to reduce `console` spam in your test output._
 
@@ -8,7 +8,7 @@ Remember back in the day when [Jest](https://jestjs.io/) used to swallow `consol
 
 Now that Jest prints all console messages, whether from our own code, third-party framework code, or the test runner itself, we have the opposite problem: **It's easy to lose actually important warnings among noise.**
 
-The `jest-clean-console-reporter` reporter collects all console messages written by the test process, and allows you to group them by known error warning types, or ignore them outright.
+The `jest-console-reporter` reporter collects all console messages written by the test process, and allows you to group them by known error warning types, or ignore them outright.
 
 ![Demo](docs/demo.png)
 
@@ -23,7 +23,7 @@ This reporter is probably best used when filtering out spammy library warnings t
 Install with your favorite package manager:
 
 ```sh
-npm install --save-dev jest-clean-console-reporter
+npm install --save-dev jest-console-reporter
 ```
 
 You'll also need Jest 25.1 or later installed in your project.
@@ -54,9 +54,9 @@ module.exports = {
   // ...
 
   reporters: [
-    // Add jest-clean-console-reporter. This takes place of the
+    // Add jest-console-reporter. This takes place of the
     // default reporter, and behaves identically otherwise
-    ["jest-clean-console-reporter", { rules: rules }],
+    ["jest-console-reporter", { rules: rules }],
 
     // Overriding config.reporters wipes out default reporters, so
     // we need to restore the summary reporter.
@@ -77,7 +77,7 @@ Pass options to the reporter in your jest configuration as follows:
 ```js
 const jestConfig = {
   reporters: [
-    ["jest-clean-console-reporter", options], // <--
+    ["jest-console-reporter", options], // <--
     "@jest/reporters/build/SummaryReporter",
   ],
 };
@@ -88,7 +88,7 @@ const jestConfig = {
 ```js
 const jestConfig = {
   reporters: [
-    ["jest-clean-console-reporter", options], // <--
+    ["jest-console-reporter", options], // <--
     "@jest/reporters/build/summary_reporter",
   ],
 };
@@ -106,7 +106,11 @@ Each rule has three options, `match`, `group` and (optionally) `keep`.
 `match` is either a regular expression, a string, or a predicate function:
 
 - `RegExp`: Matches console message against this regular expression.
-- `string`: Matches console message against this string, first using literal `===` comparison, and falls back to regular expression comparison using `message.match(match)`. The latter is not recommended, but useful if you need to serialize your regular expressions.
+- `string`:   
+  `with withStringRegexMatch option equals to true:`  
+  Matches console message against this string, first using literal `===` comparison, and falls back to regular expression comparison using `message.match(match)`. The latter is not recommended, but useful if you need to serialize your regular expressions.    
+  `Default / with withStringRegexMatch option equals to false:`  
+  Matches console message against this string, using includes method, and returns false otherwise. Much faster than using regular expressions.
 - A predicate function that's called with `match(message, level)` where
   - `message` is the full console message
   - `level` is the log level (error, warning, log etc..).
@@ -140,6 +144,10 @@ Define which log levels to display in the summary at the end of the test run:
 Default: `["error", "warn", "info", "debug", "log"]`
 
 These levels only affect the summary display, and have no effect on whether messages are matched. For that, see [Can I ignore all messages of certain log level?](#can-i-ignore-all-messages-of-certain-log-level).
+
+### options.withTestPath
+
+Defines whether test paths should be included into report; defaults to true. Only unique test paths are included into report, e.g. if several tests within the same test file have console messages from the same group, test path will be added to the group report once.
 
 ## Never Asked Questions
 

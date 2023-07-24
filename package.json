@@ -1,11 +1,11 @@
 {
-  "name": "es-modules-jest-clean-console-reporter",
+  "name": "jest-console-reporter",
   "type": "module",
-  "version": "0.3.0",
+  "version": "0.1.0",
   "description": "Jest reporter for grouping and filtering intrusive console warnings",
   "main": "lib/CleanConsoleReporter.mjs",
-  "repository": "https://github.com/acidfernando/jest-clean-console-reporter",
-  "author": "Jani Eväkallio and Fernando García Hernández",
+  "repository": "https://github.com/anamoskvina/jest-console-reporter",
+  "author": "Jani Eväkallio, Fernando García Hernández, Anastasiia Moskvina",
   "license": "MIT",
   "scripts": {
     "prepare": "npm-install-peers"
